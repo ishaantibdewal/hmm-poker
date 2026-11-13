@@ -1,0 +1,68 @@
+\begin{abstract}
+Can a hidden Markov model recover playing styles from public betting actions in online poker, and does one of its states behave like \emph{tilt}, a spell of looser play after a painful loss? On 2.6 million real six-handed no-limit hold'em hands we fit HMMs with our own NumPy implementation of Baum--Welch, forward--backward and Viterbi. A four-state HMM recovers four interpretable styles (held-out players in its loose-passive state lose 7.2 big blinds per 100 hands), but they are traits, not moods: 88\% of sessions never change state. Tilt is in the raw data as a small shift (1.0 point more pots entered after a big loss than after a big win), and this HMM cannot see it. \tiltsummary
+\end{abstract}
+
+\section{Problem description}
+A poker player's \emph{style} (how many hands they play, how aggressively) and their \emph{tilt} (a short period of looser, more reckless play after a painful loss) cannot be observed. What can be observed is a sequence of public betting decisions, one per hand. We ask: (1) can an HMM recover a small set of interpretable playing modes from public actions alone, and (2) does one of those modes behave like tilt, rising in probability after a large loss and decaying over the following hands?
+
+This is a latent-variable problem with temporal structure: a mode is hidden and persists from hand to hand (a Markov chain), and the action depends on the current mode (an emission). The uncertainty is essential: three hands in four are folded whatever the mode, because the hidden cards are bad, so a mode can only be inferred by accumulating weak evidence over many hands. The question matters beyond poker. Loss-driven changes in risk taking are a classic topic in behavioural economics \cite{thaler1990}, usually studied in small laboratory samples; online poker offers millions of time-stamped decisions by real people for real money \cite{smith2009,eil2014}. Our answer to (1) is yes. Our answer to (2) is that the effect is real but small, that the proposed model is structurally unable to see it, and that a model built around that failure can.
+
+\section{Data sourcing and processing}
+\textbf{Source.} Kim's poker hand history dataset \cite{kim2024,kim2025} (mirrored as \texttt{takara-ai/poker\_hands} on Hugging Face): a scrape of no-limit hold'em cash games on six sites from July 1 to 23, 2009, giving for each hand anonymised but consistent player identifiers, stacks, every action with its bet size, the table and the start time. It also holds the 10{,}000 hands of the Pluribus bot \cite{brown2019}, our negative control.
+
+\textbf{Filtering.} Defining a ``big loss'' needs each player's net result per hand. Winnings are complete only for PartyPoker (they are missing in 73\% of PokerStars and Full Tilt hands, 18\% of Absolute Poker, 1\% of Ongame and all of iPoker), so we use PartyPoker, at four stakes with big blinds from \$0.25 to \$10. Table size is not recorded; we keep tables with at least 200 hands at which never more than six players were dealt in: \textbf{2{,}641{,}392 hands, 331 tables, 29{,}944 players}. Amounts are in big blinds (bb). Net result is winnings minus chips put in, found by replaying the betting; it reproduces the next starting stack exactly in 90.8\% of consecutive hands (Appendix~\ref{app:data}).
+
+\textbf{Sequences.} The proposal built one sequence per player per table. The data showed this is the wrong unit: the median session spans four tables at once. A sequence is therefore \emph{one session of one player}: all their hands at all tables in order of start time, cut where they are away for more than 30 minutes. We keep sessions of at least 100 hands and players with at least 500 such hands: \textbf{2{,}618 players, 23{,}379 sessions, 9.70M player-hands} (median session 243 hands).
+
+\textbf{From a hand to a symbol.} Each hand contributes the player's first pre-flop decision, as two observed variables:
+\begin{itemize}
+\item \emph{Action} $x_t$, eight symbols: fold; check; call at a small, medium or large price; raise small, medium or large (size relative to the pot, cut at the training terciles). A three-symbol version (fold, check/call, raise) is an ablation.
+\item \emph{Context} $c_t$, ten values: position group (early, cutoff, button, small blind, big blind) $\times$ whether someone has already raised. Position rotates every hand and strongly predicts the action (players fold 76\% of early-position hands but 55\% of unraised small blinds), and some symbols are impossible in some contexts (only the big blind can check). The emission is conditioned on $c_t$ so that the hidden state need not explain this.
+\end{itemize}
+The 4.4\% of player-hands with no decision (for example everyone folds to the big blind) stay in the sequence as \emph{missing observations} and are marginalised exactly.
+
+\textbf{Events.} A \emph{big loss} is a hand in which the player loses at least 50\bb, half a standard buy-in; a \emph{big win} is the mirror image. (The proposal's ``50\% of the starting stack'' would count a 10\bb\ loss by a short stack.) There are 29{,}091 big losses and 33{,}527 big wins, about one hand in 300 each. Results are never an emission.
+
+\textbf{Splits.} Players are split at random into halves. \emph{Training} data are the earliest sessions of one half, at most 2{,}000 hands per player so that high-volume players do not dominate (1{,}309 players, 1.98M hands). Held-out data are their \emph{later sessions} (2.63M hands) and all sessions of the 1{,}309 \emph{new players} (4.91M hands). Models with per-player parameters train on each player's first 70\% of hands and test on the last 30\%.
+
+\section{Modeling and inference}
+\subsection{The pooled HMM}
+Each sequence $n$ has its own chain of \emph{scalar} hidden modes $z^{(n)}_t\in\{1,\dots,K\}$ and scalar symbols $x^{(n)}_t$ (Figure~\ref{fig:graph}). We do not model a table jointly: ``pooled'' means only that all sequences share one set of parameters $(\pi,A,B)$,
+\begin{equation}
+P(x,z\mid c)=\prod_{n=1}^{N}\Big[\pi_{z^{(n)}_1}\prod_{t=2}^{T_n}A_{z^{(n)}_{t-1}z^{(n)}_t}\prod_{t=1}^{T_n}B_{c^{(n)}_t}\big(z^{(n)}_t,x^{(n)}_t\big)\Big],
+\label{eq:joint}
+\end{equation}
+where $B_c(k,\cdot)$ is the distribution over symbols in mode $k$ and context $c$ ($3+12+280=295$ free parameters for $K=4$). A joint model of six seats would need $K^6$ states and would answer a different question (how players react to each other).
+
+\noindent\begin{minipage}[t]{0.53\linewidth}\vspace{0pt}
+\setlength{\parindent}{0pt}\textbf{Assumptions.} (i) The mode is first-order Markov and time-homogeneous. (ii) Given mode and context the action is independent of everything else; hole cards are dealt afresh each hand, so they are emission noise, not a persistent confounder. (iii) Sequences are independent given the parameters; the main interaction between players (did someone raise before me) is routed through $c_t$. (iv) Context is not caused by the mode: position comes from the rotation, earlier raises from other players. (v) All players share the parameters, so differences \emph{between} players and changes \emph{within} a player must be expressed by the same $K$ states. Assumption (v) turns out to decide what the model learns.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.44\linewidth}\vspace{2pt}
+\centering
+\resizebox{\linewidth}{!}{\input{graph}}
+\captionof{figure}{One sequence (one session of one player). Shaded nodes are observed; the dashed input $u_t$ exists only in the input-output variants.}
+\label{fig:graph}
+\end{minipage}
+
+\subsection{Learning and inference}
+Everything is implemented in NumPy. With $b_j(t)=B_{c_t}(j,x_t)$, or $1$ if $x_t$ is missing, the scaled recursions for one sequence are
+\begin{equation}
+\hat\alpha_t(j)=\frac{b_j(t)}{s_t}\sum_i\hat\alpha_{t-1}(i)A_{ij},\qquad
+\hat\beta_t(i)=\frac{1}{s_{t+1}}\sum_jA_{ij}\,b_j(t+1)\,\hat\beta_{t+1}(j),
+\end{equation}
+with $s_t$ normalising $\hat\alpha_t$, so $\log P(x\mid c)=\sum_t\log s_t$, $\gamma_t(i)=\hat\alpha_t(i)\hat\beta_t(i)$ and $\xi_t(i,j)=\hat\alpha_{t-1}(i)A_{ij}b_j(t)\hat\beta_t(j)/s_t$. The E-step runs on each sequence separately; the M-step sums the expected counts over \emph{all} sequences and normalises \cite{rabiner1989}: $A_{ij}\propto\epsilon+\sum_{n,t}\xi^{(n)}_t(i,j)$, $B_c(i,k)\propto\epsilon+\sum_{n,t}\gamma^{(n)}_t(i)\mathbf 1[c^{(n)}_t=c,x^{(n)}_t=k]$ and $\pi_i\propto\epsilon+\sum_n\gamma^{(n)}_1(i)$.
+The pseudo-count $\epsilon=0.1$ is a weak Dirichlet prior. Sequences are padded and the recursions vectorised across them (a padded step is an identity transition with emission 1); one EM iteration over 1.98M hands takes 0.42\,s on one core. Viterbi runs in log space. Emissions start at the empirical $P(x\mid c)$ times Gamma noise, transitions start sticky, and EM stops when the objective gains less than $2\times10^{-7}$ nats per decision. Each configuration is run from 5 random starts; states are then sorted by how often they fold so that state numbers are comparable across runs. \emph{Correctness}: on short sequences the likelihood, posteriors and Viterbi path equal enumeration over all $K^T$ paths to $10^{-10}$; 25 EM iterations agree with \texttt{hmmlearn} \cite{hmmlearn} to $6\times10^{-15}$; synthetic parameters are recovered (Appendix~\ref{app:impl}).
+
+\subsection{Baselines and extensions}
+\label{sec:personal}
+\textbf{No hidden state} ($K=1$). \textbf{No switching} ($A=I$): one mode per session, a mixture over sessions; its gap to the HMM is what switching \emph{inside} a session is worth. \textbf{Input-output HMM} \cite{bengio1995}: $P(z_t\mid z_{t-1},u_t)=A^{(u_t)}_{z_{t-1}z_t}$, where the observed input $u_t$ marks the first hand a player starts after a big loss (or win) has ended; the M-step keeps separate transition counts per input value.
+
+\textbf{Shift HMM.} To separate changes within a player from differences between players, we fix a baseline table $b_p(c,\cdot)$ for every player $p$ (their training counts, shrunk towards the population) and let the hidden state only \emph{shift} it:
+\begin{equation}
+P(x_t=k\mid z_t=j,\,c_t=c,\,\text{player }p)\;\propto\;b_p(c,k)\,e^{\theta_{jk}},\qquad\theta_{1k}=0,\quad\theta_{j,\text{fold}}=0 .
+\label{eq:shift}
+\end{equation}
+This is a multinomial logit with a player-by-context intercept and a state effect $\theta_j$ shared by all players; state 1 is the player's own normal game. The M-step for $\theta$ is a small concave problem solved by Newton steps inside each EM iteration (generalised EM \cite{dempster1977}; Appendix~\ref{app:impl}).
+
+\subsection{Testing for tilt}
+Around every big loss we compare the 30 hands before the loss hand with the first 30 hands the player \emph{starts after it has ended} (the 6.7 hands a multi-tabler starts on average while the big pot is still being played are excluded). Two control events share the selection that the player chose to play a pot: big wins, and ``neutral flops'' (the player saw a flop and finished within $\pm10$\bb). We report the change after a loss minus the change after a control on held-out data, with 95\% intervals from 2{,}000 bootstrap resamples of \emph{players}.

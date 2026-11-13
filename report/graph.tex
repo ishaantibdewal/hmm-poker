@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+  lat/.style={circle,draw,minimum size=6.6mm,inner sep=0pt,font=\small},
+  obs/.style={lat,fill=black!13},
+  >={Stealth[length=1.7mm]}, node distance=4mm and 11mm]
+\node[lat] (z1) {$z_{t-1}$};
+\node[lat,right=of z1] (z2) {$z_{t}$};
+\node[lat,right=of z2] (z3) {$z_{t+1}$};
+\node[obs,below=of z1] (x1) {$x_{t-1}$};
+\node[obs,below=of z2] (x2) {$x_{t}$};
+\node[obs,below=of z3] (x3) {$x_{t+1}$};
+\node[obs,below=of x1] (c1) {$c_{t-1}$};
+\node[obs,below=of x2] (c2) {$c_{t}$};
+\node[obs,below=of x3] (c3) {$c_{t+1}$};
+\node[obs,above=of z2,xshift=-9.3mm] (u2) {$u_{t}$};
+\node[obs,above=of z3,xshift=-9.3mm] (u3) {$u_{t+1}$};
+\node[left=4mm of z1] (d0) {$\cdots$};
+\node[right=4mm of z3] (d1) {$\cdots$};
+\draw[->] (d0)--(z1); \draw[->] (z1)--(z2); \draw[->] (z2)--(z3); \draw[->] (z3)--(d1);
+\foreach \i in {1,2,3} {\draw[->] (z\i)--(x\i); \draw[->] (c\i)--(x\i);}
+\draw[->,dashed] (u2)--(z2); \draw[->,dashed] (u3)--(z3);
+\node[font=\scriptsize,anchor=west,align=left] at ([xshift=9mm]z3.east) {hidden mode};
+\node[font=\scriptsize,anchor=west,align=left] at ([xshift=9mm]x3.east) {action symbol};
+\node[font=\scriptsize,anchor=west,align=left] at ([xshift=9mm]c3.east) {position, raised?};
+\node[font=\scriptsize,anchor=west,align=left] at ([xshift=9mm,yshift=0mm]u3.east |- u3) {big loss / win just ended\\(input-output variant)};
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+{'pro: MrBlue': 9121, 'pro: MrWhite': 4483, 'pro: MrPink': 6055, 'bot: Pluribus': 10000, 'pro: MrOrange': 7512, 'pro: Eddie': 5510, 'pro: Bill': 6713}
+pro: MrBlue      K=1 -0.7041  best K>1 gain -0.00013  (K: [-0.00013, -0.00026, -0.00039])
+pro: MrWhite     K=1 -0.6555  best K>1 gain -0.00027  (K: [-0.00027, -0.00053, -0.0008])
+pro: MrPink      K=1 -0.6401  best K>1 gain -0.00019  (K: [-0.00019, -0.00038, -0.00058])
+bot: Pluribus    K=1 -0.6953  best K>1 gain -0.00012  (K: [-0.00012, -0.00023, -0.00035])
+pro: MrOrange    K=1 -0.6161  best K>1 gain -0.00046  (K: [-0.00065, -0.00046, -0.00059])
+pro: Eddie       K=1 -0.6864  best K>1 gain -0.00068  (K: [-0.00108, -0.00133, -0.00068])
+pro: Bill        K=1 -0.6537  best K>1 gain +0.00601  (K: [0.00601, 0.00103, -0.00055])
+PartyPoker players (n=40): gain median -0.00012, quartiles [-2.3e-04  2.0e-05], share > 0: 0.28
+Pluribus after big loss {'n': 24, 'vpip': 0.012499999999999999, 'vpip_se': 0.02720326011916791, 'index': 0.0021629200790138346, 'index_se': 0.0016578748590666136}
+Pluribus after big win {'n': 17, 'vpip': -0.01470588235294117, 'vpip_se': 0.026229195374736648, 'index': 0.0003536491453883272, 'index_se': 0.00045732056904442984}
+Pluribus state occupancy under pooled model [0.03  0.025 0.924 0.022]  VPIP 0.264

@@ -1,0 +1,18 @@
+events {'loss': 13957, 'win': 16992, 'neutral': 54024} players {'loss': 1420, 'win': 1468, 'neutral': 1771}
+vpip         pre [0.2287 0.2267 0.2323] effect [0.0107 0.0002 0.0046]  loss-win +0.0104 [+0.0078,+0.0131] p=0.000   loss-neutral +0.0060 [+0.0040,+0.0083]
+pfr          pre [0.165  0.1624 0.1497] effect [ 0.0071 -0.0015  0.0029]  loss-win +0.0086 [+0.0064,+0.0108] p=0.000   loss-neutral +0.0042 [+0.0024,+0.0060]
+loose_index  pre [0.2401 0.2402 0.2477] effect [-0.0001  0.0006  0.0014]  loss-win -0.0007 [-0.0011,-0.0003] p=0.000   loss-neutral -0.0015 [-0.0019,-0.0011]
+filt0        pre [0.2582 0.2585 0.3056] effect [ 0.0019 -0.0026 -0.0057]  loss-win +0.0046 [+0.0020,+0.0071] p=0.001   loss-neutral +0.0076 [+0.0052,+0.0100]
+filt1        pre [0.2799 0.2799 0.2199] effect [ 0.0032  0.0001 -0.0021]  loss-win +0.0032 [-0.0002,+0.0066] p=0.065   loss-neutral +0.0053 [+0.0022,+0.0084]
+filt2        pre [0.3963 0.3949 0.3316] effect [-0.0062 -0.0008 -0.0005]  loss-win -0.0053 [-0.0090,-0.0018] p=0.002   loss-neutral -0.0056 [-0.0088,-0.0028]
+filt3        pre [0.0657 0.0668 0.143 ] effect [0.001  0.0034 0.0083]  loss-win -0.0024 [-0.0046,-0.0002] p=0.033   loss-neutral -0.0073 [-0.0095,-0.0052]
+quit {'loss': {'n': 16161, 'left_within_30': 0.09145473671183714, 'left_within_10': 0.037250170162737455, 'overlap_hands': 6.6878906008291565}, 'win': {'n': 19250, 'left_within_30': 0.07158441558441558, 'left_within_10': 0.024051948051948054, 'overlap_hands': 6.888311688311688}, 'neutral': {'n': 62559, 'left_within_30': 0.08102751003053117, 'left_within_10': 0.025192218545692865, 'overlap_hands': 3.934637702009303}}
+thr30            n= 21233 VPIP effect after loss +0.0142 [+0.0124,+0.0158]  loss-win +0.0095 [+0.0071,+0.0118]
+thr100           n=  7922 VPIP effect after loss +0.0075 [+0.0052,+0.0099]  loss-win +0.0109 [+0.0076,+0.0143]
+low_stakes       n=  4187 VPIP effect after loss +0.0125 [+0.0092,+0.0157]  loss-win +0.0141 [+0.0100,+0.0184]
+high_stakes      n=  9770 VPIP effect after loss +0.0099 [+0.0075,+0.0123]  loss-win +0.0088 [+0.0057,+0.0119]
+tables_1_2       n=   820 VPIP effect after loss +0.0194 [+0.0114,+0.0278]  loss-win +0.0149 [+0.0033,+0.0263]
+tables_3plus     n= 13137 VPIP effect after loss +0.0101 [+0.0081,+0.0122]  loss-win +0.0101 [+0.0076,+0.0129]
+players_lt3000   n=  1702 VPIP effect after loss +0.0152 [+0.0098,+0.0209]  loss-win +0.0140 [+0.0062,+0.0220]
+players_ge3000   n= 12255 VPIP effect after loss +0.0100 [+0.0080,+0.0121]  loss-win +0.0099 [+0.0074,+0.0126]
+per-player {'loss': {'players': 613, 'sd_observed': 0.035074660342197216, 'sd_expected_noise': 0.03253011754454249, 'share_z_gt2': 0.05872756933115824, 'share_z_lt_minus2': 0.052202283849918436}, 'win': {'players': 700, 'sd_observed': 0.03354006279923655, 'sd_expected_noise': 0.03318338282082972, 'share_z_gt2': 0.03428571428571429, 'share_z_lt_minus2': 0.04428571428571428}}

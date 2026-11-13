@@ -1,0 +1,28 @@
+# Environment
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Data (download from Hugging Face; see README)
+data/
+
+# Large or regenerable outputs
+results/*.npy
+results/models/personal_*
+
+# Course handouts, other students' reports, and files with student IDs
+CSE_150A_250A_Final_Project_Guidelines.pdf
+example projects/
+proposal.pdf
+
+# Build artefacts and local bundles
+final_report_DRAFT.pdf
+submission_code.zip
+report/*.aux
+report/*.log
+report/*.out
+report/main.pdf
+
+# Stray empty clone
+https:/

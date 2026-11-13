@@ -1,0 +1,22 @@
+{'alphabet': 'x3', 'context': False, 'n_params': 23, 'train': np.float64(-0.7543956497953715), 'stay': 0.997944148032493, 'later_coarse': -0.6958848946629227, 'later_own': -0.6958848946629227, 'new_coarse': -0.7278396897316561, 'new_own': -0.7278396897316561, 'pos_dependence': 0.0031329554865949533}
+{'alphabet': 'x3', 'context': True, 'n_params': 95, 'train': np.float64(-0.6345950463192245), 'stay': 0.9978030339127076, 'later_coarse': -0.5763636944052648, 'later_own': -0.5763636944052648, 'new_coarse': -0.6089685452696749, 'new_own': -0.6089685452696748, 'pos_dependence': 0.004854029623105872}
+{'alphabet': 'x8', 'context': False, 'n_params': 43, 'train': np.float64(-1.0510290277524224), 'stay': 0.9985274844483119, 'later_coarse': -0.69953609888961, 'later_own': -0.9381513498339185, 'new_coarse': -0.7325890567788548, 'new_own': -0.9967678490050227, 'pos_dependence': 0.00873423521608789}
+{'alphabet': 'x8', 'context': True, 'n_params': 295, 'train': np.float64(-0.8027028950397685), 'stay': 0.9983872199806574, 'later_coarse': -0.5812108974776155, 'later_own': -0.7111348167796874, 'new_coarse': -0.6148243670482783, 'new_own': -0.7598432227390424, 'pos_dependence': 0.008835585379614664}
+chunk 5 seqs 398861 stay 0.9695 later -0.72993 new -0.77602
+chunk 10 seqs 201062 stay 0.9889 later -0.71859 new -0.76599
+chunk 25 seqs 82500 stay 0.9953 later -0.71322 new -0.76153
+chunk 50 seqs 43031 stay 0.9966 later -0.71200 new -0.76056
+chunk 100 seqs 23452 stay 0.9976 later -0.71142 new -0.76007
+chunk 250 seqs 10867 stay 0.9982 later -0.71115 new -0.75988
+chunk None seqs 6782 stay 0.9984 later -0.71113 new -0.75984
+{'kappa': 10.0, 'later': -0.698375779292298, 'train': np.float64(-0.7781802911347475), 'stay_sd': 0.06142581951138813}
+{'kappa': 30.0, 'later': -0.6995451268405531, 'train': np.float64(-0.7816991845296094), 'stay_sd': 0.04442267207609992}
+{'kappa': 100.0, 'later': -0.7021681971011932, 'train': np.float64(-0.7882982643307039), 'stay_sd': 0.021624179435461747}
+{'kappa': 300.0, 'later': -0.7053816882339842, 'train': np.float64(-0.794491520529672), 'stay_sd': 0.007254502759402762}
+{'kappa': 1000.0, 'later': -0.7082725659533105, 'train': np.float64(-0.7989242898606645), 'stay_sd': 0.00166989221541279}
+high-volume training players: 31
+n=  500  pooled -0.69937  personal -0.69862  personal-A -0.69634  (share of players where personal beats pooled: 0.52)
+n= 1000  pooled -0.69937  personal -0.67824  personal-A -0.69532  (share of players where personal beats pooled: 0.81)
+n= 2000  pooled -0.69937  personal -0.66573  personal-A -0.69505  (share of players where personal beats pooled: 0.90)
+n= 5000  pooled -0.69937  personal -0.65654  personal-A -0.69515  (share of players where personal beats pooled: 0.97)
+n=10000  pooled -0.69937  personal -0.64994  personal-A -0.69514  (share of players where personal beats pooled: 0.97)

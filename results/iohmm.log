@@ -1,0 +1,29 @@
+inputs: share after-loss 0.00294, after-win 0.00344; in training rows: 5965 losses, 6880 wins
+gain in log-likelihood (nats): train 10.6, later sessions -12.1, new players -31.4
+placebo gains: train mean 5.6 max 9.3 | later mean -9.3 max -4.8 | new mean -24.7 max -16.8
+no event
+[[0.999 0.    0.    0.001]
+ [0.    0.998 0.001 0.   ]
+ [0.    0.001 0.999 0.001]
+ [0.001 0.    0.001 0.997]]
+after big loss
+[[0.996 0.002 0.002 0.001]
+ [0.002 0.994 0.002 0.001]
+ [0.002 0.005 0.986 0.007]
+ [0.008 0.    0.001 0.99 ]]
+after big win
+[[0.998 0.002 0.    0.   ]
+ [0.004 0.994 0.001 0.   ]
+ [0.001 0.001 0.998 0.   ]
+ [0.002 0.002 0.003 0.994]]
+state VPIP [0.194 0.226 0.259 0.371]
+expected VPIP of next state: none/loss/win
+ [[0.194 0.226 0.259 0.37 ]
+ [0.194 0.226 0.259 0.369]
+ [0.194 0.226 0.259 0.37 ]]
+loss - none CI
+ [[-0.    -0.    -0.    -0.003]
+ [ 0.001  0.001  0.001 -0.   ]] 
+loss - win CI
+ [[-0.    -0.    -0.    -0.003]
+ [ 0.001  0.001  0.002  0.001]]

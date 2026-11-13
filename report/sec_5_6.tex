@@ -1,0 +1,20 @@
+\section{Conclusion}
+\textbf{Findings.} (1) A four-state HMM learned from public pre-flop actions recovers playing styles that match poker's own categories and predict outcomes it never saw. (2) These states are traits: a model with no switching reaches 97\% of the HMM's gain, and the proposed tilt test on the pooled HMM finds nothing. (3) Tilt is nevertheless in the data: one point more pots entered after a big loss than after a big win. (4) An HMM in which each player is their own baseline finds rare, long spells of looser play that begin after 3.8\% of big losses and almost never after big wins.
+
+\textbf{Limitations and extensions.} One site and three weeks in 2009; only the first pre-flop decision of each hand; no hole cards; and an observational event study, so ``after a loss'' is not ``because of a loss''. Next steps: post-flop actions as further emissions, a continuous latent style per player (a hierarchical model) in place of the fixed table, and an entry probability that depends on the size of the loss.
+
+\section{Reflections and contributions}
+\textbf{Advice for future students.} \emph{Look at the data before trusting the plan}: three facts we learned after the proposal shaped the project (winnings are missing at most sites, players sit at four tables at once, raise sizes encode the stake). \emph{Fit the dull baselines}: the no-switching model and the per-player table with no hidden state each changed what we thought the HMM was doing. \emph{Measure the effect without the model first}, and \emph{test the implementation before using it}: after agreement with enumeration and \texttt{hmmlearn}, every surprise was about the data, not a bug.
+
+\textbf{What failed.} States did not track table position as we had predicted. Per-player modes collapsed, then over-fitted, until their prior was centred on the player's own baseline. A first shift HMM, whose loose state could only start at an event, fitted shuffled events as well as real ones (Appendix~\ref{app:more}). The input-output HMM on the pooled model was a null result.
+
+\textbf{Contributions and individual reflections.} \todo{TEAM: at most 40 words each.}
+\begin{itemize}
+\item \textbf{Ishaan Tibdewal}: \todo{What I did, in one or two sentences: which parts of the project I was responsible for. Then what I personally learned from the project, in one or two sentences of my own.}
+\item \textbf{Ayush Urs}: \todo{What I did, in one or two sentences: which parts of the project I was responsible for. Then what I personally learned from the project, in one or two sentences of my own.}
+\item \textbf{Abhishai Ganta}: \todo{What I did, in one or two sentences: which parts of the project I was responsible for. Then what I personally learned from the project, in one or two sentences of my own.}
+\item \textbf{Pratham Chheda}: \todo{What I did, in one or two sentences: which parts of the project I was responsible for. Then what I personally learned from the project, in one or two sentences of my own.}
+\item \textbf{Saksham Arora}: \todo{What I did, in one or two sentences: which parts of the project I was responsible for. Then what I personally learned from the project, in one or two sentences of my own.}
+\end{itemize}
+
+\textbf{Use of generative AI.} \todo{TEAM: review and edit so that it is accurate.} We used Claude (Anthropic), through the Claude Code tool, throughout this project. It wrote the data pipeline, the NumPy HMM implementation and its tests, and the experiment and plotting scripts; it ran the experiments; and it produced the first draft of this report, including the figures. The problem, the dataset and the proposal are ours. \todo{State what the team checked, changed and wrote.}

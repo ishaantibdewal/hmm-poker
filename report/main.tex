@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[preprint,nonatbib]{neurips_2025}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{enumitem}
+\usetikzlibrary{positioning,arrows.meta}
+\makeatletter
+\renewcommand{\@noticestring}{CSE 150A/250A Final Project, Fall 2026.}
+\makeatother
+\captionsetup{font=small,skip=3pt}
+\setlength{\textfloatsep}{9pt plus 2pt minus 2pt}
+\setlength{\floatsep}{7pt plus 2pt minus 2pt}
+\setlength{\abovedisplayskip}{5pt}\setlength{\belowdisplayskip}{5pt}
+\setlist{nosep,leftmargin=1.3em}
+\newcommand{\todo}[1]{\textcolor{red}{[#1]}}
+\newcommand{\bb}{\,bb}
+
+\title{Detecting Latent Playing Styles and Tilt in Poker\\Using Hidden Markov Models}
+
+\author{%
+  \textbf{Bob's Clan}\\
+  Ishaan Tibdewal (150A) \quad Ayush Urs (250A) \quad Abhishai Ganta (150A)\\
+  Pratham Chheda (250A) \quad Saksham Arora (150A)\\
+  University of California San Diego
+}
+
+\newcommand{\tiltsummary}{A second HMM, in which each player is their own baseline and a shared hidden state shifts it, finds rare spells of looser play lasting about 300 hands; one starts after 3.8\% of big losses and almost never after a big win.}
+\newcommand{\shiftrows}{Shift HMM, no switching, 2 / 3 states & & $-0.5847$ / $-0.5844$\\
+Shift HMM, 2 states, free / input-dependent transitions & & $-0.5846$ / $-0.5846$\\}
+\begin{document}
+\maketitle
+
+\input{body}
+\clearpage
+\input{appendix}
+
+\end{document}
