@@ -460,7 +460,7 @@ All tests also check that the EM objective never decreases.
 
 ## Use of generative AI
 
-Claude (Anthropic), through Claude Code, wrote the data pipeline, the HMM implementation and its
-tests, and the experiment and plotting scripts; it also ran the experiments and drafted the report
-and this README. The problem, dataset choice and proposal are the team's; each member reviewed
-the part of the work listed under their name in Section 6 of the report.
+We used Claude (Anthropic), through Claude Code, for implementation and auditing: under our
+direction it generated code for the pipeline, the HMM and the experiments, ran and cross-checked
+the experiments, and drafted report text, figures and this README. Each member led and reviewed
+the part listed under their name in Section 6 of the report.

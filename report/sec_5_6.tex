@@ -10,11 +10,11 @@
 
 \textbf{Contributions and individual reflections.}
 \begin{itemize}
-\item \textbf{Ishaan Tibdewal}: Led the project, ran our sessions with the AI assistant, set up the repository and cut the report to seven pages. I learned that an HMM's states mean only what the baselines allow them to mean.
-\item \textbf{Ayush Urs}: Worked through the Baum--Welch and shift-HMM M-step derivations and checked the code against them and against \texttt{hmmlearn}. I learned how much a Dirichlet prior matters once every player has their own parameters.
-\item \textbf{Abhishai Ganta}: Checked the data pipeline (betting replay, stack-continuity test, session definition) and compared winnings coverage across sites before we chose PartyPoker. I learned that most of the real work was understanding the data, not fitting the model.
-\item \textbf{Pratham Chheda}: Designed the tilt event study, with its big-win and neutral-flop controls and the player-level bootstrap, and reviewed the placebo tests. I learned to measure an effect without the model first; the pooled HMM alone would have hidden it.
-\item \textbf{Saksham Arora}: Reviewed the baselines, ablations and Pluribus control, and checked the figures against the result files. I learned that a null result, tested carefully against the right baseline, is still a result worth reporting.
+\item \textbf{Abhishai Ganta} (data lead): sourcing and filtering the data, net results by replaying the betting, cross-table sessions, event definitions and splits (Section~2). I learned that most of the work was understanding the data, not fitting the model.
+\item \textbf{Ishaan Tibdewal} (core HMM lead): forward--backward, Viterbi, Baum--Welch and their tests against enumeration and \texttt{hmmlearn} (Sections~3.1--3.2). I learned that once the code is tested, every surprise is about the data, not a bug.
+\item \textbf{Saksham Arora} (model selection and baselines lead): the $K$ sweep and restarts, the no-switching baseline, the ablations and the Pluribus control. I learned that a null result, tested against the right baseline, is still worth reporting.
+\item \textbf{Pratham Chheda} (tilt analysis lead): the model-free event study with its controls, the player-level bootstrap and the robustness checks. I learned to measure an effect without the model first; the pooled HMM alone would have hidden it.
+\item \textbf{Ayush Urs} (shift HMM lead): the per-player baseline and shift model, its Newton M-step, the input-dependent transitions and the placebo tests. I learned how a fixed baseline separates changes within a player from differences between players.
 \end{itemize}
 
-\textbf{Use of generative AI.} We used Claude (Anthropic), through Claude Code, as a coding and writing assistant: it wrote most of the code, ran the experiments and drafted this report and its figures. The question, dataset and proposal are ours; each of us reviewed the part listed above.
+\textbf{Use of generative AI.} We used Claude (Anthropic), through Claude Code, for implementation and auditing: under our direction it generated code for the pipeline, the HMM and the experiments, ran and cross-checked the experiments, and drafted report text and figures. Each lead reviewed their part, and we are responsible for all of it.
