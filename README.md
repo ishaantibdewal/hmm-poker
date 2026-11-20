@@ -11,9 +11,8 @@ We ask two questions about online poker players, using only their public betting
 Everything (data pipeline, Baum–Welch, forward–backward, Viterbi, all variants and tests) is
 implemented from scratch in NumPy and checked against brute-force enumeration and `hmmlearn`.
 
-> **Status.** The analysis is complete. The report in [`report/`](report/) is a final draft: the
-> per-member contribution statements and the generative-AI note in Section 6 are placeholders the
-> team still has to write.
+> **Status.** Complete. The submitted report is [`final_report.pdf`](final_report.pdf) (sources in
+> [`report/`](report/)).
 
 ---
 
@@ -463,4 +462,5 @@ All tests also check that the EM objective never decreases.
 
 Claude (Anthropic), through Claude Code, wrote the data pipeline, the HMM implementation and its
 tests, and the experiment and plotting scripts; it also ran the experiments and drafted the report
-and this README. The problem, dataset choice and proposal are the team's.
+and this README. The problem, dataset choice and proposal are the team's; each member reviewed
+the part of the work listed under their name in Section 6 of the report.
