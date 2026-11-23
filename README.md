@@ -460,7 +460,7 @@ All tests also check that the EM objective never decreases.
 
 ## Use of generative AI
 
-We used Claude (Anthropic), through Claude Code, for implementation and auditing: under our
-direction it generated code for the pipeline, the HMM and the experiments, ran and cross-checked
-the experiments, and drafted report text, figures and this README. Each member led and reviewed
-the part listed under their name in Section 6 of the report.
+We used Claude (Anthropic), through Claude Code, for auditing: under our direction it guided us
+through the pipeline, the HMM and the experiments. Each lead implemented and reviewed the part
+listed under their name in Section 6 of the report, and we are responsible for all of it in full
+capacity.
